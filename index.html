@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NUSI — Livreto de Acessibilidade e Inclusão | UNIMONTES</title>
+<meta name="description" content="Versão em texto acessível do livreto do NUSI (Núcleo de Sociedade Inclusiva) da UNIMONTES: perspectivas de acessibilidade e inclusão no Ensino Superior.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #16202B;
+    --ink-soft: #4A5A6A;
+    --paper: #FFFFFF;
+    --panel: #F1F4F8;
+    --panel-line: #DBE2E9;
+    --brand: #14487D;
+    --brand-dark: #0D3258;
+    --accent: #F2B705;
+    --accent-ink: #5C4300;
+    --focus: #F2B705;
+    --radius: 12px;
+    --scale: 1;
+    --maxw: 72ch;
+    font-size: calc(100% * var(--scale));
+  }
+  html[data-contrast="alto"] {
+    --ink: #FFFFFF;
+    --ink-soft: #FFFF00;
+    --paper: #000000;
+    --panel: #000000;
+    --panel-line: #FFFF00;
+    --brand: #FFFF00;
+    --brand-dark: #FFFF00;
+    --accent: #00E5FF;
+    --accent-ink: #00121A;
+    --focus: #00E5FF;
+  }
+  html[data-contrast="alto"] .sumario a.active,
+  html[data-contrast="alto"] .button-primary { color: #000; }
+  html[data-contrast="alto"] table, html[data-contrast="alto"] th, html[data-contrast="alto"] td { border-color: #FFFF00 !important; }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
+  body {
+    margin: 0;
+    font-family: 'Atkinson Hyperlegible', -apple-system, 'Segoe UI', Roboto, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    line-height: 1.6;
+    font-size: 1.05rem;
+  }
+  h1, h2, h3, h4 { line-height: 1.28; font-weight: 700; color: var(--ink); }
+  h1 { font-size: clamp(1.6rem, 3.4vw, 2.1rem); margin: 0 0 0.5rem; }
+  h2 { font-size: clamp(1.3rem, 2.6vw, 1.6rem); margin: 0 0 0.9rem; padding-top: 0.2rem; }
+  h3 { font-size: 1.1rem; margin: 1.4rem 0 0.5rem; }
+  h4 { font-size: 1rem; margin: 1.1rem 0 0.4rem; }
+  p { max-width: var(--maxw); margin: 0 0 1rem; }
+  ul, ol { max-width: var(--maxw); }
+  li { margin-bottom: 0.4rem; }
+  a { color: var(--brand); }
+  a:hover { color: var(--brand-dark); }
+  :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+  strong { color: var(--ink); }
+
+  .skip-link {
+    position: absolute; left: -999px; top: 0;
+    background: var(--brand); color: #fff;
+    padding: 0.75rem 1.25rem; border-radius: 0 0 10px 0;
+    z-index: 300; font-weight: 700; text-decoration: none;
+  }
+  .skip-link:focus { left: 0; }
+
+  .a11y-bar {
+    background: var(--ink); color: #fff;
+    display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem;
+    padding: 0.5rem 1rem; font-size: 0.85rem; position: sticky; top: 0; z-index: 120;
+  }
+  html[data-contrast="alto"] .a11y-bar { border-bottom: 1px solid #FFFF00; }
+  .a11y-bar span.label { margin-right: 0.25rem; opacity: 0.85; }
+  .a11y-bar button {
+    background: transparent; border: 1.5px solid rgba(255,255,255,0.5); color: #fff;
+    border-radius: 8px; padding: 0.3rem 0.65rem; font: inherit; cursor: pointer;
+  }
+  .a11y-bar button:hover { background: rgba(255,255,255,0.12); }
+  .a11y-bar button[aria-pressed="true"] {
+    background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 700;
+  }
+
+  header.site-header {
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+    padding: 0.9rem 1.25rem; border-bottom: 1px solid var(--panel-line);
+  }
+  .brand { display: flex; align-items: center; gap: 0.7rem; }
+  .brand-mark { width: 38px; height: 38px; border-radius: 9px; background: var(--brand); flex-shrink: 0; position: relative; }
+  .brand-mark::after { content: ""; position: absolute; inset: 8px; border: 3px solid #fff; border-radius: 50%; border-right-color: transparent; }
+  .brand-eyebrow { margin: 0; font-size: 0.75rem; color: var(--ink-soft); }
+  .brand-name { margin: 0.05rem 0 0; font-size: 1rem; font-weight: 700; }
+  .header-actions { display: flex; gap: 0.6rem; align-items: center; flex-wrap: wrap; }
+  .button {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    padding: 0.5rem 0.95rem; border-radius: 999px; font-weight: 700; font-size: 0.85rem;
+    text-decoration: none; border: 2px solid var(--brand); cursor: pointer; font-family: inherit;
+  }
+  .button-primary { background: var(--brand); color: #fff; }
+  .button-primary:hover { background: var(--brand-dark); color: #fff; }
+  .button-ghost { background: transparent; color: var(--brand); }
+  .button-ghost:hover { background: var(--panel); }
+  .sumario-toggle { display: none; }
+
+  .layout { display: flex; align-items: flex-start; }
+  .sumario {
+    width: 300px; flex-shrink: 0; position: sticky; top: 45px;
+    max-height: calc(100vh - 45px); overflow-y: auto;
+    background: var(--panel); border-right: 1px solid var(--panel-line);
+    padding: 1.1rem 0 2rem;
+  }
+  .sumario h2 {
+    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--ink-soft); padding: 0 1.1rem; margin-bottom: 0.6rem;
+  }
+  .sumario ol { list-style: none; margin: 0; padding: 0; max-width: none; }
+  .sumario li { margin: 0; border-bottom: 1px solid var(--panel-line); }
+  .sumario a {
+    display: flex; align-items: center; gap: 0.65rem;
+    padding: 0.55rem 1.1rem; text-decoration: none; color: var(--ink); font-size: 0.9rem;
+  }
+  .sumario a:hover { background: var(--paper); }
+  .sumario a.active { background: var(--brand); color: #fff; font-weight: 700; }
+  .sumario .page-badge {
+    flex-shrink: 0; min-width: 1.9rem; text-align: center;
+    font-size: 0.72rem; font-weight: 700; color: var(--brand);
+    background: var(--paper); border: 1px solid var(--panel-line);
+    border-radius: 999px; padding: 0.1rem 0.35rem;
+  }
+  .sumario a.active .page-badge { background: #fff; color: var(--brand); border-color: #fff; }
+
+  main.content { flex: 1; min-width: 0; padding: 0 1.5rem 4rem; max-width: 980px; }
+  main.content > section { padding-top: 2.4rem; border-top: 1px solid var(--panel-line); margin-top: 2.4rem; }
+  main.content > section:first-of-type { border-top: none; margin-top: 1.8rem; }
+  .kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--brand); margin-bottom: 0.4rem; }
+
+  .callout {
+    background: var(--panel); border: 1px solid var(--panel-line); border-left: 5px solid var(--brand);
+    border-radius: var(--radius); padding: 1rem 1.2rem; margin: 1.2rem 0; max-width: var(--maxw);
+  }
+  .callout.reflexao { border-left-color: var(--accent); }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout .callout-label { font-weight: 700; display: block; margin-bottom: 0.3rem; }
+
+  .cards { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); margin: 1.2rem 0; max-width: 980px; }
+  .card { background: var(--panel); border: 1px solid var(--panel-line); border-radius: var(--radius); padding: 1.1rem 1.2rem; }
+  .card h4 { margin-top: 0; }
+  .card p { margin-bottom: 0; font-size: 0.95rem; }
+
+  dl { max-width: var(--maxw); margin: 0 0 1.2rem; }
+  dl dt { margin-top: 0.7rem; }
+  dl dd { margin: 0.15rem 0 0; }
+  .visually-hidden {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+  }
+
+  table { border-collapse: collapse; width: 100%; max-width: 980px; margin: 1rem 0 1.4rem; font-size: 0.92rem; }
+  caption { text-align: left; font-weight: 700; margin-bottom: 0.4rem; }
+  th, td { border: 1px solid var(--panel-line); padding: 0.55rem 0.7rem; text-align: left; vertical-align: top; }
+  th { background: var(--panel); }
+
+  details.legal { margin: 0.8rem 0; max-width: var(--maxw); }
+  details.legal summary { cursor: pointer; font-weight: 700; color: var(--brand); }
+  details.legal ul { margin: 0.6rem 0 0; padding-left: 1.2rem; font-size: 0.92rem; }
+
+  .timeline { list-style: none; padding-left: 1.7rem; margin: 1.2rem 0; border-left: 3px solid var(--panel-line); max-width: 720px; }
+  .timeline li { position: relative; padding-bottom: 1.3rem; }
+  .timeline li::before {
+    content: ""; position: absolute; left: -2.05rem; top: 0.2rem;
+    width: 12px; height: 12px; border-radius: 50%; background: var(--brand);
+    border: 3px solid var(--paper); box-shadow: 0 0 0 2px var(--panel-line);
+  }
+  .timeline .year { display: inline-block; font-weight: 700; color: var(--brand); background: var(--panel);
+    border-radius: 999px; padding: 0.1rem 0.65rem; margin-bottom: 0.25rem; font-size: 0.9rem; }
+  .timeline p { margin: 0; font-size: 0.95rem; }
+
+  .contact-grid { display: grid; gap: 1rem; margin: 1.2rem 0; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); max-width: 980px; }
+  .contact-card { background: var(--panel); border: 1px solid var(--panel-line); border-radius: var(--radius); padding: 1rem 1.15rem; }
+  .contact-card h4 { margin: 0 0 0.3rem; font-size: 0.95rem; }
+  address { font-style: normal; }
+
+  .form-preview { display: grid; gap: 1.4rem; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); margin: 1rem 0; max-width: 980px; }
+  .form-preview ul { list-style: none; padding: 0; margin: 0.5rem 0 0; }
+  .form-preview li { padding: 0.3rem 0; font-size: 0.93rem; }
+  .form-preview li::before { content: "☐ "; color: var(--brand); font-weight: 700; }
+
+  footer.site-footer {
+    border-top: 1px solid var(--panel-line); padding: 1.6rem 1.5rem; font-size: 0.85rem; color: var(--ink-soft);
+  }
+
+  @media (max-width: 900px) {
+    .sumario-toggle { display: inline-flex; }
+    .layout { position: relative; }
+    .sumario {
+      position: fixed; z-index: 200; top: 0; left: 0; bottom: 0; width: min(85vw, 320px);
+      transform: translateX(-100%); transition: transform 0.2s ease; box-shadow: 4px 0 18px rgba(0,0,0,0.2);
+      max-height: 100vh;
+    }
+    .sumario.open { transform: translateX(0); }
+    main.content { padding: 0 1.1rem 3rem; }
+  }
+</style>
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <div class="a11y-bar" role="region" aria-label="Ferramentas de acessibilidade">
+    <span class="label">Acessibilidade:</span>
+    <button type="button" id="btn-font-decrease" aria-label="Diminuir tamanho do texto">A−</button>
+    <button type="button" id="btn-font-reset" aria-label="Tamanho de texto padrão">A</button>
+    <button type="button" id="btn-font-increase" aria-label="Aumentar tamanho do texto">A+</button>
+    <button type="button" id="btn-contrast" aria-pressed="false">Alto contraste</button>
+    <button type="button" id="btn-read" aria-pressed="false">Ouvir esta página</button>
+  </div>
+
+  <header class="site-header">
+    <div class="brand">
+      <button class="sumario-toggle button button-ghost" id="sumario-toggle" aria-expanded="false" aria-controls="sumario-nav">☰ Sumário</button>
+      <span class="brand-mark" aria-hidden="true"></span>
+      <div>
+        <p class="brand-eyebrow">UNIMONTES · Departamento de Educação</p>
+        <p class="brand-name">NUSI — Perspectivas de Acessibilidade e Inclusão no Ensino Superior</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <a class="button button-ghost" href="livreto-nusi-leitura-online.pdf" target="_blank" rel="noopener noreferrer">PDF (ordem de leitura)</a>
+      <a class="button button-ghost" href="livreto-nusi-unimontes.pdf" target="_blank" rel="noopener noreferrer">PDF original (impressão)</a>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav class="sumario" id="sumario-nav" aria-label="Sumário do livreto">
+      <h2>Sumário</h2>
+      <ol id="sumario-list">
+        <li><a href="#apresentacao" data-target="apresentacao"><span class="page-badge">11</span> Apresentação</a></li>
+        <li><a href="#cap1" data-target="cap1"><span class="page-badge">13</span> 1. Concepções iniciais</a></li>
+        <li><a href="#cap2" data-target="cap2"><span class="page-badge">16</span> 2. Compreendendo a diferença</a></li>
+        <li><a href="#cap3" data-target="cap3"><span class="page-badge">17</span> 3. Documentos legais</a></li>
+        <li><a href="#cap4" data-target="cap4"><span class="page-badge">22</span> 4. Público-alvo</a></li>
+        <li><a href="#cap5" data-target="cap5"><span class="page-badge">26</span> 5. AEE: conceituação</a></li>
+        <li><a href="#cap6" data-target="cap6"><span class="page-badge">28</span> 6. O NUSI na Unimontes</a></li>
+        <li><a href="#cap7" data-target="cap7"><span class="page-badge">32</span> 7. Profissionais envolvidos</a></li>
+        <li><a href="#cap8" data-target="cap8"><span class="page-badge">35</span> 8. Adaptações curriculares</a></li>
+        <li><a href="#cap9" data-target="cap9"><span class="page-badge">37</span> 9. Plano de Desenvolvimento Individual</a></li>
+        <li><a href="#cap10" data-target="cap10"><span class="page-badge">39</span> 10. Ensino Colaborativo</a></li>
+        <li><a href="#cap11" data-target="cap11"><span class="page-badge">41</span> 11. Processo de avaliação</a></li>
+        <li><a href="#cap12" data-target="cap12"><span class="page-badge">43</span> 12. Adaptações procedimentais</a></li>
+        <li><a href="#cap13" data-target="cap13"><span class="page-badge">46</span> 13. PROFEI / Unimontes</a></li>
+        <li><a href="#cap14" data-target="cap14"><span class="page-badge">48</span> 14. Considerações finais</a></li>
+        <li><a href="#referencias" data-target="referencias"><span class="page-badge">49</span> Referências</a></li>
+        <li><a href="#contato" data-target="contato"><span class="page-badge">·</span> Contato</a></li>
+      </ol>
+    </nav>
+
+    <main class="content" id="conteudo">
+      <section id="apresentacao" aria-labelledby="apresentacao-title">
+        <p class="kicker">Página 11</p>
+        <h1 id="apresentacao-title">Apresentação</h1>
+        <p>Caro(a) leitor(a),</p>
+        <p>A cartilha informativa <strong>Núcleo de Sociedade Inclusiva – NUSI/Unimontes: Perspectivas de Acessibilidade e Inclusão no Ensino Superior</strong> é um material elaborado pelo Núcleo de Sociedade Inclusiva (NUSI), vinculado ao Departamento de Educação e à Pró-Reitoria de Ensino da Universidade Estadual de Montes Claros (Unimontes). Foi idealizada para docentes, discentes, comunidade acadêmica em geral, pesquisadores e demais interessados.</p>
+        <p>Partindo do tema Educação Especial no Ensino Superior, este material foi organizado com o objetivo de informar, orientar e sanar dúvidas relacionadas à inclusão de acadêmicos público-alvo da Educação Especial no contexto universitário.</p>
+        <p>Espaços educacionais inclusivos devem ser pautados pelo respeito à diversidade, em que a diferença se estabeleça como fio condutor das identidades — e não pela ideia de oposições binárias entre "normal" e "especial". Devem proporcionar relações que reconheçam a singularidade de cada pessoa, com oportunidades de aprendizagem enraizadas nas potencialidades, habilidades, interesses e aptidões de cada estudante.</p>
+        <p>É importante destacar que <strong>não existem fórmulas prontas</strong>: as soluções para os desafios cotidianos devem ser construídas de forma colaborativa, com base na experiência docente, nas observações em sala de aula, no diálogo com familiares e especialistas e, sobretudo, na escuta atenta ao próprio estudante.</p>
+        <p>Este material reúne informações, reflexões e sugestões para auxiliar a prática acadêmica e promover um Ensino Superior acessível, inclusivo e de qualidade, conforme preveem as legislações brasileiras e os tratados internacionais dos quais o Brasil é signatário — como a Convenção sobre os Direitos das Pessoas com Deficiência (ONU, 2006), incorporada ao ordenamento jurídico brasileiro com status constitucional (Decreto nº 6.949/2009).</p>
+        <p><strong>Boa leitura!</strong></p>
+        <div class="callout">
+          <span class="callout-label">Como o NUSI nasceu</span>
+          <p>O NUSI foi criado pela Resolução CEPEx nº 120/2005, com o objetivo de oferecer Atendimento Educacional Especializado (AEE) aos acadêmicos da Unimontes que ingressam pelo sistema de cotas na categoria de pessoa com deficiência. As ações do NUSI visam assegurar o acesso, a permanência e o pleno desenvolvimento por meio de adaptações curriculares, elaboração de materiais acessíveis e disponibilização de Tecnologias Assistivas.</p>
+        </div>
+      </section>
+
+      <section id="cap1" aria-labelledby="cap1-title">
+        <p class="kicker">Página 13</p>
+        <h2 id="cap1-title">1. Educação Especial e Educação Inclusiva: concepções iniciais</h2>
+        <p>Antes de tudo, vale esclarecer alguns termos e princípios que orientam este material.</p>
+        <h3>Pessoa com deficiência</h3>
+        <p>Este material adota o conceito presente na <strong>Lei Brasileira de Inclusão da Pessoa com Deficiência – Lei nº 13.146/2015, art. 2º</strong>, cujo objetivo é assegurar e promover, em condições de igualdade, o exercício dos direitos e das liberdades fundamentais pelas pessoas com deficiência. Considera-se pessoa com deficiência aquela que tem impedimentos de longo prazo, de natureza física, mental, intelectual ou sensorial, os quais, em interação com diversas barreiras, podem restringir sua participação plena e efetiva na sociedade e nos espaços educacionais.</p>
+        <h3>Capacitismo</h3>
+        <p>O termo <strong>capacitismo</strong> demarca práticas de preconceito e opressão direcionadas à pessoa com deficiência: um conjunto de práticas, crenças e discursos que estabelece uma hierarquia entre corpos considerados "normais" e aqueles vistos como "anormais". Sustentada pela teoria da corponormatividade, essa lógica inferioriza pessoas com deficiência, atribuindo-lhes, de forma equivocada, a condição de incapacidade. É um preconceito muitas vezes velado, disfarçado sob aparência de cuidado ou admiração.</p>
+        <p>No Brasil, o combate ao capacitismo encontra respaldo no <strong>art. 4º da Lei nº 13.146/2015</strong>, que assegura que toda pessoa com deficiência tem direito à igualdade de oportunidades e não pode ser discriminada. O § 1º do mesmo artigo define discriminação como toda forma de distinção, restrição ou exclusão que tenha o propósito ou o efeito de prejudicar, impedir ou anular o reconhecimento ou exercício dos direitos e liberdades fundamentais — incluindo a recusa de adaptações razoáveis e de fornecimento de tecnologias assistivas.</p>
+        <h3>Barreiras</h3>
+        <p>Entende-se por <strong>barreiras</strong> todos os obstáculos, atitudes ou comportamentos que limitem ou impeçam a participação social das pessoas com deficiência, comprometendo seus direitos à acessibilidade, à liberdade de locomoção, à expressão, à comunicação e ao acesso à informação, entre outros.</p>
+        <p>De acordo com o art. 3º, inciso IV, da Lei nº 13.146/2015, essas barreiras podem ser classificadas em:</p>
+        <div class="cards">
+          <div class="card"><h4>Urbanísticas</h4><p>Presentes em vias e espaços públicos ou privados de uso coletivo.</p></div>
+          <div class="card"><h4>Arquitetônicas</h4><p>Encontradas em edifícios públicos e privados.</p></div>
+          <div class="card"><h4>Nos transportes</h4><p>Presentes nos sistemas e meios de transporte.</p></div>
+          <div class="card"><h4>Na comunicação e informação</h4><p>Qualquer fator que dificulte ou impossibilite a expressão ou o recebimento de mensagens e informações.</p></div>
+          <div class="card"><h4>Atitudinais</h4><p>Atitudes ou comportamentos que discriminem ou dificultem a participação social em igualdade de condições.</p></div>
+          <div class="card"><h4>Tecnológicas</h4><p>Obstáculos que dificultam ou impedem o acesso às tecnologias por pessoas com deficiência.</p></div>
+        </div>
+        <h3>Acessibilidade</h3>
+        <p>A acessibilidade é definida pelo <strong>art. 3º, I, da Lei nº 13.146/2015</strong> como a possibilidade e condição de alcance para utilização, com segurança e autonomia, de espaços, mobiliários, equipamentos urbanos, edificações, transportes, informação e comunicação — inclusive seus sistemas e tecnologias — bem como de outros serviços e instalações abertos ao público, de uso público ou privados de uso coletivo, tanto na zona urbana como na rural, por pessoa com deficiência ou com mobilidade reduzida.</p>
+        <div class="callout reflexao">
+          <span class="callout-label">Para refletir</span>
+          <p>"A inclusão acontece quando se aprende com as diferenças e não com as igualdades." — Paulo Freire</p>
+        </div>
+      </section>
+
+      <section id="cap2" aria-labelledby="cap2-title">
+        <p class="kicker">Página 16</p>
+        <h2 id="cap2-title">2. Educação Especial e Educação Inclusiva: compreendendo a diferença</h2>
+        <p>Ainda é comum a existência de dúvidas em torno dos conceitos de Educação Especial e Educação Inclusiva. Embora estejam intimamente relacionados, cada um tem suas especificidades.</p>
+        <h3>Educação Especial</h3>
+        <p>É uma <strong>modalidade de ensino</strong> que perpassa todos os níveis, etapas e modalidades da educação, incluindo o Ensino Superior. Sua função é oferecer o Atendimento Educacional Especializado (AEE), além de disponibilizar recursos, serviços e orientações que apoiem o ensino e a aprendizagem dos estudantes público-alvo nas turmas comuns do ensino regular (art. 58 da Lei nº 9.394/1996 — LDB).</p>
+        <p>No Ensino Superior, a Educação Especial se efetiva por meio de ações que assegurem:</p>
+        <ul>
+          <li><strong>Acesso</strong> — eliminação de barreiras arquitetônicas, comunicacionais, informacionais e pedagógicas, conforme a Lei nº 13.146/2015;</li>
+          <li><strong>Permanência</strong> — adaptações curriculares, tecnologias assistivas e serviços de apoio especializado;</li>
+          <li><strong>Participação</strong> — estratégias pedagógicas inclusivas, intérpretes de Libras, materiais acessíveis, entre outros.</li>
+        </ul>
+        <p>Essas medidas devem estar presentes não apenas em sala de aula, mas também nos processos seletivos e nas ações de pesquisa e extensão.</p>
+        <h3>Educação Inclusiva</h3>
+        <p>É a abordagem que defende o <strong>direito de todas as pessoas</strong> — com ou sem deficiência, com ou sem condições atípicas — a uma educação de qualidade em ambientes comuns. Está respaldada na Constituição Federal (arts. 205 e 206) e na Convenção sobre os Direitos das Pessoas com Deficiência (Decreto nº 6.949/2009), que asseguram um sistema educacional inclusivo em todos os níveis. Valoriza a diversidade humana e reconhece as diferenças individuais como atributos que enriquecem o convívio escolar, não como obstáculos ao processo educativo.</p>
+      </section>
+
+      <section id="cap3" aria-labelledby="cap3-title">
+        <p class="kicker">Página 17</p>
+        <h2 id="cap3-title">3. Documentos legais</h2>
+        <p>A política de inclusão no Brasil se apoia em marcos internacionais e nacionais que reconhecem a educação como direito humano e garantem <strong>acesso, permanência, participação e aprendizagem</strong> em igualdade de condições. Alguns dos principais documentos:</p>
+        <details class="legal">
+          <summary>Ver linha do tempo completa (normativas internacionais e nacionais)</summary>
+          <table>
+            <caption class="visually-hidden">Normativas internacionais e nacionais de educação inclusiva</caption>
+            <thead><tr><th scope="col">Ano</th><th scope="col">Documento / evento</th><th scope="col">O que estabelece</th></tr></thead>
+            <tbody>
+              <tr><td>1948</td><td>Declaração Universal dos Direitos Humanos</td><td>Reconhece a educação como direito humano universal.</td></tr>
+              <tr><td>1988</td><td>Constituição Federal Brasileira</td><td>Garante direito à educação, igualdade de acesso e permanência, e o AEE preferencialmente na rede regular.</td></tr>
+              <tr><td>1990</td><td>Conferência Mundial sobre Educação para Todos (Jomtien/ONU)</td><td>Lança o Plano de Ação para universalizar o acesso à educação básica.</td></tr>
+              <tr><td>1993</td><td>Declaração de Manágua</td><td>Propõe incluir o tema "deficiência" nos currículos e no acesso a serviços públicos.</td></tr>
+              <tr><td>1994</td><td>Declaração de Salamanca (UNESCO)</td><td>Estabelece princípios para a inclusão de alunos com necessidades educacionais especiais no ensino regular.</td></tr>
+              <tr><td>1996</td><td>Lei nº 9.394 (LDB)</td><td>Prevê adaptações curriculares, AEE, terminalidade específica e aceleração de estudos.</td></tr>
+              <tr><td>1999</td><td>Convenção Interamericana (Guatemala)</td><td>Condena qualquer forma de exclusão baseada na deficiência.</td></tr>
+              <tr><td>2002</td><td>Lei nº 10.436</td><td>Reconhece a Libras como meio legal de comunicação das comunidades surdas.</td></tr>
+              <tr><td>2004</td><td>Cartilha do Ministério Público Federal</td><td>Dissemina conceitos e diretrizes mundiais para a inclusão.</td></tr>
+              <tr><td>2005</td><td>Decreto nº 5.626</td><td>Regulamenta a Libras; determina ensino bilíngue e formação de intérpretes.</td></tr>
+              <tr><td>2006</td><td>Plano Nacional de Educação em Direitos Humanos</td><td>Promove inclusão e direitos das pessoas com deficiência na educação básica e superior.</td></tr>
+              <tr><td>2006</td><td>Convenção da ONU sobre os Direitos das Pessoas com Deficiência</td><td>Status constitucional no Brasil pelo Decreto nº 6.949/2009.</td></tr>
+              <tr><td>2007</td><td>Plano de Desenvolvimento da Educação (PDE)</td><td>Recomenda acessibilidade arquitetônica e salas de recursos multifuncionais.</td></tr>
+              <tr><td>2008</td><td>Política Nacional de Educação Especial na Perspectiva da Educação Inclusiva</td><td>Fundamenta a política nacional, da Educação Especial à Educação Inclusiva.</td></tr>
+              <tr><td>2008</td><td>Decreto nº 6.571</td><td>Apresenta diretrizes para o AEE no sistema regular de ensino.</td></tr>
+              <tr><td>2009</td><td>Resolução CNE/CEB nº 4</td><td>Institui diretrizes operacionais do AEE, prioritariamente em salas de recursos multifuncionais.</td></tr>
+              <tr><td>2010</td><td>Conferência Nacional de Educação (CONAE)</td><td>Reúne cerca de 4.000 representantes; origina versão atualizada do Plano Nacional de Educação.</td></tr>
+              <tr><td>2011</td><td>Plano Nacional dos Direitos da Pessoa com Deficiência – Viver sem Limite</td><td>Garante um sistema educacional inclusivo como diretriz de Estado.</td></tr>
+              <tr><td>2011</td><td>Decreto nº 7.611</td><td>Dispõe sobre a Educação Especial e o Atendimento Educacional Especializado.</td></tr>
+              <tr><td>2012</td><td>Lei nº 12.764</td><td>Institui a Política Nacional de Proteção dos Direitos da Pessoa com Transtorno do Espectro Autista.</td></tr>
+              <tr><td>2013</td><td>Lei nº 12.796</td><td>Altera a LDB para incluir a formação de professores voltada à inclusão.</td></tr>
+              <tr><td>2014</td><td>Decreto nº 8.368</td><td>Regulamenta a política de proteção à pessoa com TEA.</td></tr>
+              <tr><td>2014</td><td>Lei nº 13.005</td><td>Institui o Plano Nacional de Educação (PNE) 2014–2024.</td></tr>
+              <tr><td>2015</td><td>Lei nº 13.146 — Lei Brasileira de Inclusão</td><td>Estatuto da Pessoa com Deficiência: garante acessibilidade e inclusão em todos os níveis de ensino.</td></tr>
+              <tr><td>2015</td><td>Lei nº 13.234</td><td>Dispõe sobre identificação, cadastramento e atendimento de alunos com altas habilidades/superdotação.</td></tr>
+              <tr><td>2018</td><td>Lei nº 13.716</td><td>Garante atendimento educacional a estudantes internados para tratamento de saúde.</td></tr>
+            </tbody>
+          </table>
+        </details>
+
+        <h3>Na Unimontes</h3>
+        <p>Além das normativas nacionais, a Unimontes construiu sua própria trajetória de acessibilidade:</p>
+        <ul class="timeline">
+          <li><span class="year">2004</span><p><strong>Lei Estadual nº 15.150</strong> — adesão da Unimontes ao sistema de cotas.</p></li>
+          <li><span class="year">2005</span><p><strong>Resolução CEPEx nº 120</strong> — aprova a criação do NUSI.</p></li>
+          <li><span class="year">2017</span><p><strong>Lei Estadual nº 22.571</strong> — estabelece reserva de vagas para pessoas com deficiência na Unimontes.</p></li>
+          <li><span class="year">2017</span><p><strong>PDI 2017–2021</strong> — reconhece o AEE e o apoio institucional como prioridades.</p></li>
+          <li><span class="year">2018</span><p><strong>Resolução CEPEx nº 080</strong> — estabelece critérios para a contratação de Professor Auxiliar de Educação Especial (apoio, revisor de braile e intérprete de Libras).</p></li>
+          <li><span class="year">2022</span><p><strong>PDI 2022–2026</strong> — consolida a Educação Inclusiva, fortalecendo o NUSI e o PAPPO.</p></li>
+        </ul>
+      </section>
+
+      <section id="cap4" aria-labelledby="cap4-title">
+        <p class="kicker">Página 22</p>
+        <h2 id="cap4-title">4. Educação Especial: público-alvo</h2>
+        <p>De acordo com a Política Nacional de Educação Especial na Perspectiva da Educação Inclusiva (2008) e o Decreto nº 7.611/2011, são considerados público-alvo da Educação Especial os estudantes que têm direito ao Atendimento Educacional Especializado (AEE), reunidos em três grupos:</p>
+        <div class="cards">
+          <div class="card">
+            <h4>1. Estudantes com deficiência</h4>
+            <p>Pessoas com impedimentos de longo prazo, de natureza física, mental, intelectual ou sensorial, que em interação com barreiras podem ter sua participação plena e efetiva restringida (Lei nº 13.146/2015, art. 2º).</p>
+          </div>
+          <div class="card">
+            <h4>2. Estudantes com Transtornos Globais do Desenvolvimento (TGD)</h4>
+            <p>Incluem alterações significativas na comunicação, na interação social recíproca e no repertório de interesses e comportamentos. O Decreto nº 8.368/2014 reconhece o Transtorno do Espectro Autista (TEA) como deficiência para todos os efeitos legais, garantindo acesso ao AEE.</p>
+          </div>
+          <div class="card">
+            <h4>3. Estudantes com Altas Habilidades/Superdotação (AH/SD)</h4>
+            <p>Apresentam potencial elevado em áreas como capacidade intelectual, acadêmica, liderança, psicomotricidade ou artes, com criatividade e desempenho acima da média (Lei nº 13.234/2015).</p>
+          </div>
+        </div>
+
+        <h3>Caracterização</h3>
+        <dl>
+          <dt><strong>Cegueira</strong></dt><dd>Ausência total de visão, inclusive da percepção luminosa.</dd>
+          <dt><strong>Baixa visão</strong></dt><dd>Presença de resíduos visuais que possibilitam a leitura de textos ampliados ou com recursos ópticos.</dd>
+          <dt><strong>Surdocegueira</strong></dt><dd>Presença concomitante de deficiência auditiva e visual.</dd>
+          <dt><strong>Deficiência auditiva</strong></dt><dd>Perda bilateral, parcial ou total, de 41 dB até 70 dB; ainda é possível o uso da língua oral para comunicação.</dd>
+          <dt><strong>Surdez</strong></dt><dd>Perda auditiva acima de 71 dB; na maioria dos casos, a comunicação ocorre em Libras, com o português como segunda língua.</dd>
+          <dt><strong>Deficiência intelectual</strong></dt><dd>Função intelectual aquém da média, associada a limitações na comunicação, autocuidado e habilidades sociais.</dd>
+          <dt><strong>Deficiência física</strong></dt><dd>Comprometimento das competências físicas, decorrente da alteração parcial ou completa de uma ou mais regiões do corpo.</dd>
+          <dt><strong>Deficiência múltipla</strong></dt><dd>Presença de dois ou mais tipos de deficiência (por exemplo, intelectual/visual/auditiva/física).</dd>
+        </dl>
+        <details class="legal">
+          <summary>Ver subtipos do Transtorno Global do Desenvolvimento (TGD)</summary>
+          <ul>
+            <li><strong>Autismo infantil</strong> — comprometimento das relações interpessoais e alterações de comunicação, linguagem e comportamento, incluindo estereotipias motoras.</li>
+            <li><strong>Síndrome de Rett</strong> — perda de atividade funcional das mãos, isolamento, regressão da fala e das habilidades motoras, e microcefalia progressiva.</li>
+            <li><strong>Síndrome de Asperger</strong> — relacionada ao autismo, diferenciando-se por alterações formais da linguagem e na interação social.</li>
+            <li><strong>Transtorno desintegrativo da infância</strong> — perda de funções e capacidades anteriormente adquiridas pela criança.</li>
+          </ul>
+        </details>
+
+        <h3>Garantias legais</h3>
+        <p>Todos os estudantes público-alvo da Educação Especial e Inclusiva, em todos os níveis de ensino — incluindo o Ensino Superior — têm direito a:</p>
+        <ul>
+          <li>Matrícula em classes comuns da rede regular de ensino (arts. 58 e 59 da LDB);</li>
+          <li>AEE gratuito, realizado preferencialmente no contraturno, com recursos, serviços e estratégias pedagógicas adequadas (Resolução CNE/CEB nº 4/2009);</li>
+          <li>Acessibilidade arquitetônica, comunicacional, pedagógica e informacional (Lei nº 13.146/2015);</li>
+          <li>Adaptações curriculares e avaliações compatíveis com suas necessidades (art. 59, I, II e III, da LDB).</li>
+        </ul>
+        <div class="callout reflexao">
+          <span class="callout-label">Para refletir</span>
+          <p>Para a compreensão da deficiência, o modelo biomédico descreve apenas aspectos clínicos. Já o modelo social, adotado pela Convenção sobre os Direitos das Pessoas com Deficiência (Decreto nº 6.949/2009), enfatiza que a desigualdade se manifesta nas barreiras impostas por uma sociedade que não reconhece ou valoriza a diversidade.</p>
+        </div>
+      </section>
+
+      <section id="cap5" aria-labelledby="cap5-title">
+        <p class="kicker">Página 26</p>
+        <h2 id="cap5-title">5. Atendimento Educacional Especializado: conceituação</h2>
+        <p>A Educação Especial é uma modalidade de ensino que perpassa todos os níveis, etapas e modalidades da educação, com o objetivo de garantir acessibilidade, formação de professores e o Atendimento Educacional Especializado (AEE) aos estudantes com deficiência, transtornos globais do desenvolvimento e altas habilidades/superdotação.</p>
+        <h3>Mas afinal, o que é o AEE e como ele acontece?</h3>
+        <p>O AEE integra a proposta político-pedagógica da instituição de ensino e deve envolver toda a equipe escolar, de forma articulada com profissionais de outras áreas — como saúde e assistência social — e outros serviços que já acompanham o estudante. O engajamento da família em todas as etapas do atendimento também é essencial para o sucesso do processo educativo.</p>
+        <p>De acordo com a Política Nacional de Educação Especial na Perspectiva da Educação Inclusiva (2008), o AEE tem como função a identificação, elaboração e organização de recursos pedagógicos e de acessibilidade. Esse atendimento pode ocorrer:</p>
+        <ul>
+          <li>Na <strong>sala de aula regular</strong>, com apoio direto e colaborativo ao professor regente; e/ou</li>
+          <li>Em <strong>salas de recursos multifuncionais</strong>, geralmente no contraturno escolar, ou em centros especializados.</li>
+        </ul>
+        <p>De acordo com o Decreto nº 7.611/2011 e a Resolução CNE/CEB nº 4/2009, as atividades do AEE devem ser ofertadas de forma <strong>complementar ou suplementar</strong> à escolarização, sem substituí-la. O objetivo é promover a autonomia, a independência e a participação plena dos estudantes, tanto no ambiente escolar quanto em outros contextos sociais.</p>
+        <p>Conforme previsto no Decreto nº 6.571/2008, o AEE deve estar previsto no Projeto Político-Pedagógico (PPP) da instituição e, sempre que possível, contar com:</p>
+        <ul>
+          <li><strong>Sala de Recursos Multifuncionais</strong>, equipada com mobiliário e materiais pedagógicos acessíveis;</li>
+          <li><strong>Plano de Atendimento Educacional Especializado (PAEE)</strong> ou equivalente, que registre necessidades, estratégias e recursos utilizados;</li>
+          <li><strong>Equipe composta por professores especializados</strong> e, quando necessário, intérprete de Libras, guia-intérprete, profissional de apoio ou acompanhante.</li>
+        </ul>
+        <p>A Lei Brasileira de Inclusão, em seu art. 28, reforça que é dever do Estado, da família, da comunidade escolar e da sociedade assegurar a educação inclusiva em todos os níveis e modalidades, com adaptações razoáveis e apoios necessários.</p>
+        <div class="callout reflexao">
+          <span class="callout-label">Para refletir</span>
+          <p>O Atendimento Educacional Especializado é um espaço que potencializa a autonomia e a aprendizagem do estudante. Ele não substitui o ensino regular, mas o fortalece, garantindo a participação plena e o desenvolvimento acadêmico e social.</p>
+        </div>
+      </section>
+
+      <section id="cap6" aria-labelledby="cap6-title">
+        <p class="kicker">Página 28</p>
+        <h2 id="cap6-title">6. NUSI — Núcleo de Sociedade Inclusiva: o AEE no âmbito da Unimontes</h2>
+        <p>O NUSI — Núcleo de Sociedade Inclusiva, aprovado pela <strong>Resolução CEPEx/Unimontes nº 120/2005</strong>, é vinculado à Pró-Reitoria de Ensino e ao Departamento de Educação. Foi criado com o objetivo de desenvolver ações que garantam uma Educação Superior socialmente includente e comprometida, a partir da democratização do acesso e da melhoria dos processos de produção, transmissão e aplicação do conhecimento na Universidade — ações fundamentais para receber novos estudantes e garantir a permanência dos ingressos pelo sistema de cotas, conforme previsto no Plano de Desenvolvimento Institucional (PDI 2022–2026).</p>
+        <p>A missão do NUSI se baseia na necessidade de o Ensino Superior realizar <strong>ações afirmativas de inclusão educacional e social</strong>, que garantam a progressiva tomada de consciência por parte de estudantes, professores e setores da Universidade, construindo o ensino por meio de uma estratégia inter e multifocal, em direção a uma sociedade mais justa e igualitária.</p>
+        <p>O NUSI é responsável pela proposição, organização, coordenação e execução de ações para assegurar a inclusão de pessoas com deficiência à vida acadêmica e profissional — reduzindo ou eliminando barreiras pedagógicas, instrumentais, arquitetônicas, de comunicação e de informação.</p>
+        <p>Atualmente o NUSI desenvolve suas atividades em dois espaços no <strong>Centro de Ciências Humanas (CCH)</strong>: sala 21 e sala 27, atendendo acadêmicos contemplados pelas suas ações, além de professores, membros da comunidade acadêmica e da sociedade em geral.</p>
+
+        <h3>Serviços ofertados</h3>
+        <ul>
+          <li>Interpretação/tradução em Libras e Língua Portuguesa;</li>
+          <li>Apoio nas atividades acadêmicas;</li>
+          <li>Apoio na locomoção;</li>
+          <li>Serviços de adaptação e produção de materiais;</li>
+          <li>Acompanhamento pedagógico / monitoria;</li>
+          <li>Suporte de acessibilidade em eventos institucionais;</li>
+          <li>Suporte e orientação aos profissionais da universidade em ações inclusivas;</li>
+          <li>Tradução de conteúdos de livros para braile;</li>
+          <li>Entre outros, conforme a política de acessibilidade da Universidade.</li>
+        </ul>
+
+        <h3>Equipamentos e serviços de acessibilidade</h3>
+        <ul>
+          <li>Serviços de digitalização;</li>
+          <li>Conversão e ampliação de materiais bibliográficos impressos e digitais;</li>
+          <li>Computadores adaptados com softwares leitores e ampliadores de tela;</li>
+          <li>Impressão em braile;</li>
+          <li>Lupa ampliadora digital portátil;</li>
+          <li>Escâner leitor de livros e escâner digitalizador de imagens;</li>
+          <li>Folheador de páginas;</li>
+          <li>Entre outros.</li>
+        </ul>
+
+        <h3>Cursos oferecidos</h3>
+        <p>Conforme a demanda identificada, o NUSI oferece cursos de formação para docentes, discentes e servidores:</p>
+        <ul>
+          <li>Curso de Libras;</li>
+          <li>Curso de Braile;</li>
+          <li>Curso de Sorobã.</li>
+        </ul>
+
+        <h3>Em números</h3>
+        <p>Dados do Censo de 2020 registravam 157 acadêmicos matriculados com registro de pessoa com deficiência (PCD) na Universidade. Atualmente são 138 acadêmicos matriculados com registro de PCD — considerando que a demanda é induzida pelo próprio acadêmico. No segundo semestre de 2025, o NUSI atende <strong>66 acadêmicos</strong> no Atendimento Educacional Especializado.</p>
+
+        <h3>Como solicitar o Atendimento Educacional Especializado</h3>
+        <p>Ao ingressar na Universidade, o acadêmico que necessitar de AEE deverá registrar a solicitação via e-mail (<a href="mailto:nusi@unimontes.br">nusi@unimontes.br</a>), conforme o modelo de requerimento a seguir.</p>
+
+        <h3>Modelo de requerimento de Atendimento Educacional Especializado</h3>
+        <div class="form-preview">
+          <div>
+            <h4>Dados do requerimento</h4>
+            <ul>
+              <li>Nome</li>
+              <li>Data de nascimento / idade</li>
+              <li>Número de matrícula</li>
+              <li>Curso / período / turno</li>
+            </ul>
+            <h4>Motivo do acompanhamento</h4>
+            <ul>
+              <li>Deficiência auditiva</li>
+              <li>Deficiência visual</li>
+              <li>Transtornos Globais do Desenvolvimento</li>
+              <li>Altas Habilidades/Superdotação</li>
+              <li>Deficiência intelectual</li>
+              <li>Outros</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Apoios pedagógicos que pode solicitar</h4>
+            <ul>
+              <li>Apoio didático-pedagógico, orientação, suporte psicológico e emocional</li>
+              <li>Flexibilização curricular / adequação nas atividades</li>
+              <li>Tradutor e intérprete de Libras / Língua Portuguesa</li>
+              <li>Correção diferenciada das produções escritas</li>
+              <li>Tempo ampliado para realização de avaliações</li>
+              <li>Aplicador ledor / redator para avaliações</li>
+              <li>Materiais em braile</li>
+              <li>Materiais ampliados e auxílios ópticos</li>
+              <li>Avaliações diferenciadas</li>
+              <li>Acessibilidade nas edificações</li>
+              <li>Realização das provas em formato digital</li>
+              <li>Utilização de materiais / mobiliário adaptado</li>
+            </ul>
+          </div>
+        </div>
+        <div class="callout">
+          <span class="callout-label">Importante</span>
+          <p>No ato da solicitação, <strong>a apresentação do laudo médico é obrigatória</strong>.</p>
+        </div>
+      </section>
+
+      <section id="cap7" aria-labelledby="cap7-title">
+        <p class="kicker">Página 32</p>
+        <h2 id="cap7-title">7. Atendimento Educacional Especializado na Unimontes: profissionais envolvidos</h2>
+        <p>Na Unimontes, o AEE é realizado por <strong>Professores Auxiliares de Educação Especial</strong> — profissionais com formações específicas e atribuições complementares, que visam garantir a acessibilidade, a permanência e a autonomia dos estudantes público-alvo. Conforme a Resolução nº 080-CEPEx/2018, há três especificidades relacionadas ao cargo:</p>
+
+        <h3>1. Tradutor-intérprete de Língua de Sinais</h3>
+        <p><strong>Função:</strong> realizar a tradução ou interpretação da Língua Portuguesa para a Língua Brasileira de Sinais e vice-versa durante as aulas, contribuindo para o processo de ensino-aprendizagem do estudante surdo. <strong>Base legal:</strong> Lei nº 10.436/2002 e Decreto nº 5.626/2005.</p>
+        <p>Entre suas atribuições: traduzir/interpretar atividades didático-pedagógicas e culturais, inclusive fora da sala de aula; traduzir aulas, eventos, reuniões e atividades acadêmicas; promover a interação entre estudantes surdos e a comunidade acadêmica; acompanhar a aplicação de avaliações; e desenvolver estudos junto aos estudantes surdos para a criação ou convenção de sinais técnicos da área.</p>
+
+        <h3>2. Professor de Apoio</h3>
+        <p><strong>Função:</strong> auxiliar o estudante com necessidades específicas (deficiência física, intelectual, transtorno do espectro autista e deficiência múltipla) durante as aulas das disciplinas cursadas, contribuindo para o processo de ensino-aprendizagem. <strong>Base legal:</strong> Resolução CNE/CEB nº 4/2009 e orientações da SEE/MG (2014).</p>
+        <p>Entre suas atribuições: auxiliar os estudantes na resolução de tarefas funcionais, ampliando habilidades em busca de uma vida independente e autônoma; auxiliar na organização das atividades escolares; acompanhar avaliações; apoiar locomoção, cuidados pessoais e alimentação, quando necessário; colaborar na organização das atividades acadêmicas; auxiliar na gestão do tempo e na adaptação de materiais; utilizar tecnologias assistivas; e trabalhar aspectos de autonomia, autoestima e independência.</p>
+
+        <h3>3. Revisor de Braile</h3>
+        <p><strong>Função:</strong> traduzir os conteúdos apresentados em livros e demais materiais impressos para braile. <strong>Base legal:</strong> Lei nº 13.146/2015 (prevê o uso do braile como forma de comunicação e tecnologia de acessibilidade).</p>
+        <p>Entre suas atribuições: acompanhar a aplicação de avaliações; orientar os estudantes sobre serviços e equipamentos de acessibilidade disponíveis; realizar pesquisas voltadas ao desenvolvimento de novos métodos, materiais e recursos de tecnologia assistiva; elaborar o plano de atendimento educacional especializado; e apoiar atividades de locomoção, cuidados pessoais e alimentação em articulação com as atividades pedagógicas.</p>
+
+        <div class="callout reflexao">
+          <span class="callout-label">Para refletir</span>
+          <p>Art. 8º: nenhum estudante com deficiência ou com transtorno do espectro autista deve ser dispensado das aulas na ausência do professor auxiliar de educação especial — cabe à Coordenação do Curso se organizar para melhor atender às necessidades específicas desse estudante (Unimontes, 2018).</p>
+        </div>
+      </section>
+
+      <section id="cap8" aria-labelledby="cap8-title">
+        <p class="kicker">Página 35</p>
+        <h2 id="cap8-title">8. Adaptações curriculares: ações para acesso a conteúdos e saberes</h2>
+        <p>As adaptações curriculares são <strong>medidas pedagógicas</strong> que permitem ajustar objetivos, conteúdos, metodologias, recursos e avaliações, de forma a garantir que todos os estudantes — especialmente os que compõem o público-alvo da Educação Especial — tenham acesso pleno ao currículo e possam aprender em igualdade de condições.</p>
+        <p>Segundo o MEC (2000), essas adaptações não se destinam a reduzir a complexidade do ensino, mas a <strong>eliminar barreiras</strong> e assegurar que cada estudante alcance o máximo de seu potencial acadêmico, social e pessoal. As adaptações devem potencializar a inclusão e o acesso por meio de estratégias, métodos e recursos pedagógicos — sem simplificar o currículo, mas garantindo igualdade na aprendizagem e no desenvolvimento acadêmico.</p>
+        <h3>Classificação das adaptações curriculares</h3>
+        <p>Conforme a Cartilha Projeto Escola Viva (2000), as adaptações podem ser organizadas em dois níveis:</p>
+        <div class="cards">
+          <div class="card">
+            <h4>Grande porte</h4>
+            <p>Definidas em nível político-administrativo; requerem ações de natureza financeira, estrutural e institucional — mudanças no currículo, normas educacionais e investimentos em acessibilidade física, comunicacional e pedagógica. Base legal: Lei nº 13.146/2015, art. 28, I e § 1º ("adaptações razoáveis").</p>
+          </div>
+          <div class="card">
+            <h4>Pequeno porte</h4>
+            <p>Realizadas diretamente pelo professor no cotidiano escolar: ajustes no tempo de execução das atividades, estratégias de ensino diferenciadas, materiais adaptados, uso de tecnologia assistiva e avaliações alternativas.</p>
+          </div>
+        </div>
+        <details class="legal">
+          <summary>Ver fundamentação legal</summary>
+          <ul>
+            <li><strong>Constituição Federal de 1988</strong> — art. 206, I: igualdade de condições para acesso e permanência na escola.</li>
+            <li><strong>LDB — Lei nº 9.394/1996</strong>, por meio da Lei nº 12.796/2013 — art. 59: garante adaptações nos currículos, métodos, técnicas, recursos e organização escolar.</li>
+            <li><strong>Lei nº 13.146/2015</strong> — art. 28: adoção de medidas individualizadas e coletivas que garantam acesso, permanência e participação.</li>
+            <li><strong>Decreto nº 7.611/2011</strong> — art. 2º: organização de recursos pedagógicos e de acessibilidade para eliminar barreiras.</li>
+            <li><strong>Resolução CNE/CEB nº 4/2009</strong> — diretrizes operacionais do AEE, orientando o uso de recursos e adaptações para garantir acesso ao currículo.</li>
+          </ul>
+        </details>
+        <div class="callout reflexao">
+          <span class="callout-label">Para refletir</span>
+          <p>O Ensino Superior é desafiado a repensar seus objetivos, métodos de ensino e formas de avaliação, adotando as adaptações curriculares não como concessões, mas como prerrogativa legal e condição necessária para a aprendizagem, permanência e conclusão dos estudantes da Educação Especial.</p>
+        </div>
+      </section>
+
+      <section id="cap9" aria-labelledby="cap9-title">
+        <p class="kicker">Página 37</p>
+        <h2 id="cap9-title">9. Plano de Desenvolvimento Individual (PDI)</h2>
+        <p>O Plano de Desenvolvimento Individual (PDI) é um instrumento fundamental para a personalização do ensino, com base nas necessidades específicas de cada estudante. Sua função é orientar o processo de aprendizagem por meio de ações e estratégias pedagógicas que busquem minimizar barreiras e ampliar as possibilidades de acessibilidade e participação.</p>
+        <p>Nessa perspectiva, o PDI corresponde a um documento que considera o estudante em seu nível atual de habilidades, conhecimentos e desenvolvimento, idade cronológica, nível de escolarização já alcançado e objetivos educacionais desejados a curto, médio e longo prazos (Glat et al., 2012).</p>
+        <h3>Objetivos</h3>
+        <ul>
+          <li>Planejar estratégias pedagógicas individualizadas para superar barreiras de aprendizagem;</li>
+          <li>Definir metas de curto, médio e longo prazo, considerando as habilidades já desenvolvidas;</li>
+          <li>Selecionar recursos e tecnologias assistivas de acordo com as especificidades do estudante;</li>
+          <li>Acompanhar e registrar progressos, ajustando estratégias conforme necessário.</li>
+        </ul>
+        <p>No Estado de Minas Gerais, a SEE/MG (2014) prevê o PDI como documento obrigatório na Educação Básica, elaborado em parceria entre professores, equipe escolar e família.</p>
+        <details class="legal">
+          <summary>Ver fundamentação legal</summary>
+          <ul>
+            <li>Embora o PDI não seja mencionado de forma explícita em leis federais, sua elaboração encontra respaldo em:</li>
+            <li><strong>LDB — Lei nº 9.394/1996</strong>, art. 59, I e II: garante currículos, métodos e recursos adaptados às necessidades individuais.</li>
+            <li><strong>Lei nº 13.146/2015</strong>, art. 28: prevê a adoção de medidas individualizadas para assegurar acesso, permanência, participação e aprendizagem.</li>
+            <li><strong>Resolução CNE/CEB nº 4/2009</strong>: orienta a elaboração de registros pedagógicos e estratégias personalizadas.</li>
+          </ul>
+        </details>
+        <div class="callout">
+          <span class="callout-label">PDI no Ensino Superior</span>
+          <p>Embora sua obrigatoriedade seja prevista na Educação Básica, o uso do PDI no Ensino Superior é recomendado como boa prática de inclusão. Ele permite monitorar a trajetória acadêmica, promover a permanência com sucesso e garantir que as adaptações pedagógicas sejam contínuas e avaliadas.</p>
+        </div>
+      </section>
+
+      <section id="cap10" aria-labelledby="cap10-title">
+        <p class="kicker">Página 39</p>
+        <h2 id="cap10-title">10. Ensino Colaborativo: prática necessária na Educação Inclusiva</h2>
+        <p>O ensino colaborativo é uma estratégia pedagógica que promove o trabalho conjunto entre o <strong>professor da classe comum</strong> e o <strong>professor da Educação Especial</strong>, visando garantir a participação efetiva e a aprendizagem dos estudantes público-alvo (Marin; Braun, 2013).</p>
+        <p>A dinâmica consiste em um processo harmônico no qual o professor regente traz os saberes disciplinares, as matrizes curriculares e o planejamento, enquanto o professor da Educação Especial contribui com propostas de adaptações curriculares que atendem às especificidades do estudante. Marin e Braun (2013) apontam que essa parceria propõe uma <strong>ressignificação do planejamento</strong>, de forma a atender à demanda específica do estudante sem provocar o empobrecimento do ensino.</p>
+        <p>O ensino colaborativo não se restringe à divisão de tarefas: promove uma atuação conjunta em todas as etapas do processo pedagógico, desde a identificação das barreiras de aprendizagem até a proposição de estratégias didáticas e avaliações acessíveis. No Ensino Superior, ele se apresenta como uma alternativa potente para fortalecer o direito à educação, permitindo pensar o currículo de maneira flexível e acessível, sem comprometer a qualidade acadêmica.</p>
+        <details class="legal">
+          <summary>Ver fundamentação legal</summary>
+          <ul>
+            <li><strong>LDB — Lei nº 9.394/1996</strong>, arts. 58 e 59: assegura a oferta de serviços e recursos de apoio especializado, de forma complementar ou suplementar à escolarização.</li>
+            <li><strong>Lei nº 13.146/2015</strong>, art. 28: prevê a formação de professores para o AEE e o uso de práticas pedagógicas inclusivas.</li>
+            <li><strong>Resolução CNE/CEB nº 4/2009</strong>: orienta a atuação articulada entre professores da sala comum e do AEE, para garantir acesso ao currículo.</li>
+            <li><strong>Decreto nº 7.611/2011</strong>: reforça que o AEE deve ser integrado às atividades da sala regular, e não isolado.</li>
+          </ul>
+        </details>
+        <div class="callout reflexao">
+          <span class="callout-label">Para refletir</span>
+          <p>O ensino colaborativo não é apenas uma técnica, mas um compromisso ético e pedagógico com a Educação Inclusiva. Quando dois profissionais unem saberes, todos os estudantes se beneficiam.</p>
+        </div>
+      </section>
+
+      <section id="cap11" aria-labelledby="cap11-title">
+        <p class="kicker">Página 41</p>
+        <h2 id="cap11-title">11. Educação Especial na perspectiva Inclusiva: processo de avaliação</h2>
+        <p>Em uma instituição comprometida com a educação inclusiva, o Projeto Político-Pedagógico (PPP) deve conceber a avaliação como um processo <strong>contínuo, formativo e flexível</strong>, por meio do qual se definem, reorientam ou aprimoram estratégias pedagógicas, considerando as potencialidades, necessidades e o ritmo de aprendizagem de cada acadêmico.</p>
+        <h3>Funções da avaliação</h3>
+        <ul>
+          <li>Acompanhar o desenvolvimento acadêmico e socioemocional do estudante;</li>
+          <li>Reorientar estratégias de ensino, a partir dos avanços e dificuldades identificados;</li>
+          <li>Promover a aprendizagem, respeitando diferentes tempos e modos de aprender;</li>
+          <li>Valorizar a diversidade de formas de expressão e comunicação.</li>
+        </ul>
+        <h3>Princípios para a avaliação inclusiva</h3>
+        <ul>
+          <li><strong>Equidade:</strong> dar condições justas, não iguais, considerando as especificidades de cada estudante;</li>
+          <li><strong>Flexibilidade:</strong> adaptar instrumentos e procedimentos avaliativos;</li>
+          <li><strong>Foco na aprendizagem:</strong> evitar caráter meramente classificatório ou punitivo;</li>
+          <li><strong>Diversidade de instrumentos:</strong> ampliar as possibilidades de o estudante demonstrar seu conhecimento.</li>
+        </ul>
+        <h3>Instrumentos de avaliação: possibilidades</h3>
+        <ul>
+          <li>Registros pedagógicos (observações, relatórios, fichas descritivas, diário de classe);</li>
+          <li>Projetos e atividades interativas, individuais ou em grupo;</li>
+          <li>Autoavaliação, incentivando a autorreflexão;</li>
+          <li>Portfólios que reúnem produções significativas dos estudantes ao longo do tempo;</li>
+          <li>Avaliações orais, práticas ou adaptadas, conforme as necessidades específicas de cada aprendiz.</li>
+        </ul>
+        <details class="legal">
+          <summary>Ver fundamentação legal</summary>
+          <ul>
+            <li><strong>LDB — Lei nº 9.394/1996</strong>, arts. 24 e 59: a avaliação do rendimento deve ser contínua e cumulativa, com métodos e técnicas adequados às necessidades do estudante.</li>
+            <li><strong>Lei nº 13.146/2015</strong>, art. 28, § 1º: determina a adoção de critérios de avaliação compatíveis com as deficiências e necessidades do aluno, assegurando sua progressão escolar.</li>
+            <li><strong>Decreto nº 7.611/2011</strong>, art. 2º: garante a organização de recursos pedagógicos e de acessibilidade para eliminar barreiras.</li>
+            <li><strong>Resolução CNE/CEB nº 4/2009</strong>: orienta que a avaliação seja adaptada e articulada ao AEE.</li>
+          </ul>
+        </details>
+        <p>A escolha dos instrumentos deve <strong>respeitar as particularidades de cada estudante</strong>, seus modos de expressão e comunicação, assegurando equidade nas oportunidades de demonstrar o que sabem e o que estão aprendendo — sem a pretensão de um roteiro fechado ou prescritivo.</p>
+        <div class="callout reflexao">
+          <span class="callout-label">Para refletir</span>
+          <p>Avaliar na perspectiva inclusiva não é "facilitar" ou "diminuir o conteúdo", mas adaptar o caminho para que todos cheguem ao aprendizado, reconhecendo que diferentes trajetórias podem levar a resultados igualmente válidos.</p>
+        </div>
+      </section>
+
+      <section id="cap12" aria-labelledby="cap12-title">
+        <p class="kicker">Página 43</p>
+        <h2 id="cap12-title">12. Adaptações procedimentais e ambientais: possibilidades</h2>
+        <p>As adaptações curriculares são fundamentais para garantir a qualidade da aprendizagem, a autonomia e a permanência dos estudantes em igualdade de condições com os demais. Partindo do princípio de que as adaptações devem responder às especificidades de cada estudante, seguem orientações organizadas por tipo de necessidade. <strong>Nenhuma adaptação é universal</strong> — ela deve ser construída a partir das necessidades da pessoa atendida.</p>
+
+        <h3>Estudantes com deficiência visual (cegueira ou baixa visão)</h3>
+        <ul>
+          <li>Antecipar atividades adaptadas por meio de audiodescrição;</li>
+          <li>Organizar o ambiente físico para facilitar a locomoção segura;</li>
+          <li>Utilizar leitores de tela e softwares como o Balabolka para converter textos em áudio;</li>
+          <li>Para baixa visão: observar espaçamento adequado, papel fosco, fonte ampliada e contraste de cores;</li>
+          <li>Disponibilizar escriba e sala com menor ruído para realização de provas.</li>
+        </ul>
+
+        <h3>Estudantes surdos ou com deficiência auditiva</h3>
+        <ul>
+          <li>Oferecer acessibilidade linguística, por meio da presença do tradutor-intérprete de Libras/Língua Portuguesa;</li>
+          <li>Posicionar o estudante de forma que tenha acesso visual às informações da sala de aula;</li>
+          <li>Fornecer materiais antecipadamente ao estudante e ao intérprete;</li>
+          <li>Utilizar materiais em Libras ou com tradução para Libras;</li>
+          <li>Utilizar vídeos legendados, materiais visuais e textos escritos, respeitando o nível linguístico do estudante (o português é sua segunda língua);</li>
+          <li>Utilizar imagens, mapas conceituais e recursos visuais na apresentação dos conteúdos.</li>
+        </ul>
+
+        <h3>Estudantes com deficiência intelectual</h3>
+        <ul>
+          <li>Estimular habilidades de comunicação, autocuidado e interação social;</li>
+          <li>Criar ambientes emocionalmente acolhedores;</li>
+          <li>Utilizar linguagem simples e objetiva, com espaçamento e destaque nos enunciados;</li>
+          <li>Evitar excesso de estímulos visuais ou cognitivos;</li>
+          <li>Permitir que o estudante experimente diferentes estratégias de aprendizagem.</li>
+        </ul>
+
+        <h3>Estudantes com Transtorno do Espectro Autista (TEA)</h3>
+        <ul>
+          <li>Respeitar rotinas estáveis e momentos de maior disposição para realizar atividades;</li>
+          <li>Oferecer espaços para expressão de incômodos e estratégias de autorregulação;</li>
+          <li>Envolver preferências e interesses do estudante nas atividades;</li>
+          <li>Explicar com clareza os passos e objetivos das tarefas;</li>
+          <li>Utilizar imagens, símbolos e enunciados curtos e organizados topicamente;</li>
+          <li>Oferecer alternativas em atividades em grupo, como duplas ou grupos menores.</li>
+        </ul>
+
+        <h3>Outras possibilidades de ações, para qualquer estudante</h3>
+        <ul>
+          <li>Estabelecer um banco de registros em áudio ou vídeo, organizado por disciplina, para consulta posterior;</li>
+          <li>Sugerir ao estudante a reserva de, pelo menos, 5 horas semanais no contraturno para estudos;</li>
+          <li>Adaptar a linguagem de enunciados e instruções, identificando o que favorece a compreensão do acadêmico;</li>
+          <li>Ajudar na organização de um calendário de estudos;</li>
+          <li>Flexibilizar o tempo de execução de atividades e avaliações;</li>
+          <li>Garantir a utilização de tecnologias assistivas adequadas a cada especificidade;</li>
+          <li>Realizar provas em ambientes silenciosos e sem interferências externas;</li>
+          <li>Adotar metodologias e avaliações diversificadas, com base na pluralidade de estratégias;</li>
+          <li>Garantir acessibilidade física, comunicacional, tecnológica e organização de espaço e controle de estímulos, conforme a necessidade.</li>
+        </ul>
+
+        <details class="legal">
+          <summary>Ver fundamentação legal</summary>
+          <ul>
+            <li><strong>LDB — Lei nº 9.394/1996</strong>, art. 59: prevê métodos e técnicas adequados às necessidades de cada estudante.</li>
+            <li><strong>Lei nº 13.146/2015</strong>, arts. 27 a 30: garante acessibilidade física, comunicacional, metodológica e tecnológica.</li>
+            <li><strong>Decreto nº 7.611/2011</strong>, art. 3º: define a organização de recursos e serviços para eliminar barreiras.</li>
+            <li><strong>Resolução CNE/CEB nº 4/2009</strong>: orienta a flexibilização curricular e o uso de recursos de acessibilidade.</li>
+            <li><strong>NBR 9050/2020 (ABNT)</strong>: estabelece parâmetros técnicos para acessibilidade arquitetônica.</li>
+          </ul>
+        </details>
+        <div class="callout reflexao">
+          <span class="callout-label">Para refletir</span>
+          <p>A adaptação curricular não deve ser entendida como uma forma de simplificação do conteúdo, mas sim como a criação de estratégias acessíveis que possibilitem a todos os estudantes alcançar a aprendizagem, respeitando seus diferentes ritmos e modos de expressão. As adaptações são planejadas de acordo com as necessidades específicas de cada estudante, podendo não se aplicar, necessariamente, a outros que apresentem a mesma deficiência (Papim, 2020).</p>
+        </div>
+      </section>
+
+      <section id="cap13" aria-labelledby="cap13-title">
+        <p class="kicker">Página 46</p>
+        <h2 id="cap13-title">13. PROFEI / Unimontes: potencializando práticas inclusivas</h2>
+        <p>Diante da necessidade de promover práticas inclusivas por meio da formação de professores que atuam diretamente no Atendimento Educacional Especializado (AEE), a Unimontes, junto com o Departamento de Educação e o NUSI, credenciou-se ao <strong>Programa de Pós-Graduação em Educação Inclusiva (PROFEI)</strong>, passando a ofertar o curso de Mestrado Profissional em Educação Inclusiva em Rede Nacional — cuja primeira turma teve início no primeiro semestre de 2025.</p>
+        <p>O PROFEI é reconhecido pela Coordenação de Aperfeiçoamento de Pessoal de Nível Superior (CAPES), do Ministério da Educação, e tem como objetivo principal construir uma cultura colaborativa que articule a equipe escolar e os professores de Educação Especial em uma perspectiva de Educação Inclusiva, possibilitando que os educadores aprimorem seus conhecimentos técnicos, pedagógicos e científicos, garantindo a todos os estudantes o acesso e a apropriação do conhecimento.</p>
+        <p>É de caráter interinstitucional, em rede nacional, de modalidade híbrida, com oferta simultânea no âmbito nacional, gratuita, em associação com outras instituições públicas de Ensino Superior.</p>
+        <h3>Área de concentração</h3>
+        <p><strong>Educação Inclusiva.</strong> São abordados os principais desafios da educação contemporânea, a ressignificação dos sentidos da educação e os fundamentos, pressupostos e práticas da Educação Especial e Inclusiva, incluindo o uso de Tecnologias Digitais de Informação e Comunicação na formação de professores.</p>
+        <h3>Linhas de pesquisa</h3>
+        <ul>
+          <li>Educação Especial na Perspectiva da Educação Inclusiva;</li>
+          <li>Inovação Tecnológica e Tecnologia Assistiva;</li>
+          <li>Práticas e Processos Formativos de Educadores para Educação Inclusiva.</li>
+        </ul>
+        <h3>Público-alvo</h3>
+        <p>Professores com diploma de graduação, atuando como regente de classe da Educação Básica em redes públicas municipal, estadual ou federal de ensino.</p>
+        <div class="callout">
+          <span class="callout-label">PROFEI</span>
+          <p>O Programa de Pós-Graduação em Educação Inclusiva torna-se relevante e necessário, uma vez que corrobora com as políticas públicas de inclusão no contexto da Unimontes, além de potencializar as ações do Núcleo de Sociedade Inclusiva (NUSI).</p>
+        </div>
+      </section>
+
+      <section id="cap14" aria-labelledby="cap14-title">
+        <p class="kicker">Página 48</p>
+        <h2 id="cap14-title">14. Considerações finais</h2>
+        <p>A Educação Inclusiva não é apenas um imperativo legal, mas um compromisso ético e social. Ela reconhece que a diversidade é uma riqueza e que cada estudante traz contribuições únicas para a comunidade escolar. Nesse sentido, implementar práticas inclusivas exige:</p>
+        <ul>
+          <li><strong>Mudança de paradigma:</strong> deixar de ver a deficiência como limitação e reconhecê-la como parte da diversidade humana;</li>
+          <li><strong>Ação coletiva:</strong> o sucesso depende da participação ativa de todos — professores, estudantes, famílias e gestores;</li>
+          <li><strong>Formação continuada:</strong> profissionais preparados são fundamentais para promover a acessibilidade e garantir a aprendizagem de todos;</li>
+          <li><strong>Monitoramento e avaliação constante:</strong> assegurar que as políticas e práticas estejam alcançando os objetivos propostos.</li>
+        </ul>
+        <p>Enfim, o material apresentado reforça a necessidade de refletir sobre práticas educacionais inclusivas, em especial chamando atenção para a inclusão no contexto da Universidade — território que tem por missão promover a formação acadêmica e humana, além de propiciar relações permeadas pela empatia e respeito à diversidade.</p>
+        <div class="callout">
+          <span class="callout-label">Enfim...</span>
+          <p>Este material reforça a ideia de que educar é incluir, e que cada passo dado em direção à equidade fortalece não apenas o indivíduo, mas toda a sociedade.</p>
+        </div>
+      </section>
+
+      <section id="referencias" aria-labelledby="referencias-title">
+        <p class="kicker">Página 49</p>
+        <h2 id="referencias-title">Referências</h2>
+        <p>Este material foi construído com base nas seguintes fontes:</p>
+        <details class="legal">
+          <summary>Ver lista completa de referências</summary>
+          <ul>
+            <li>ASSOCIAÇÃO BRASILEIRA DE NORMAS TÉCNICAS. <em>NBR 9050: Acessibilidade a edificações, mobiliário, espaços e equipamentos urbanos.</em> 2020.</li>
+            <li>BRASIL. <em>Constituição da República Federativa do Brasil de 1988.</em> Brasília: Senado Federal, 1988.</li>
+            <li>BRASIL. Comitê Nacional de Educação em Direitos Humanos. <em>Plano Nacional de Educação em Direitos Humanos.</em> Brasília, 2006.</li>
+            <li>BRASIL. Conselho Nacional de Educação. Câmara de Educação Básica. <em>Resolução CNE/CEB nº 4</em>, de 2 de outubro de 2009.</li>
+            <li>BRASIL. <em>Decreto nº 5.626</em>, de 22 de dezembro de 2005.</li>
+            <li>BRASIL. <em>Decreto nº 6.571</em>, de 17 de setembro de 2008.</li>
+            <li>BRASIL. <em>Decreto nº 6.949</em>, de 25 de agosto de 2009.</li>
+            <li>BRASIL. <em>Decreto nº 7.611</em>, de 17 de novembro de 2011.</li>
+            <li>BRASIL. <em>Decreto nº 8.368</em>, de 2 de dezembro de 2014.</li>
+            <li>BRASIL. <em>Lei nº 9.394</em>, de 20 de dezembro de 1996 (LDB).</li>
+            <li>BRASIL. <em>Lei nº 10.436</em>, de 24 de abril de 2002.</li>
+            <li>BRASIL. <em>Lei nº 12.764</em>, de 27 de dezembro de 2012.</li>
+            <li>BRASIL. <em>Lei nº 12.796</em>, de 4 de abril de 2013.</li>
+            <li>BRASIL. <em>Lei nº 13.005</em>, de 25 de junho de 2014.</li>
+            <li>BRASIL. <em>Lei nº 13.146</em>, de 6 de julho de 2015.</li>
+            <li>BRASIL. <em>Lei nº 13.234</em>, de 29 de dezembro de 2015.</li>
+            <li>BRASIL. <em>Lei nº 13.716</em>, de 24 de setembro de 2018.</li>
+            <li>BRASIL. Ministério da Educação. <em>Política Nacional de Educação Especial na Perspectiva da Educação Inclusiva.</em> Brasília: MEC/SEESP, 2008.</li>
+            <li>BRASIL. Ministério da Educação. <em>Adaptações curriculares: estratégias para a educação de alunos com necessidades educacionais especiais.</em> Brasília: MEC/SEESP, 2000.</li>
+            <li>BRASIL. Ministério da Educação. <em>Projeto Escola Viva.</em> Brasília: MEC/SEF, 2000.</li>
+            <li>CEPEX/UNIMONTES. <em>Resolução nº 120/2005</em> — aprova o projeto de criação do Núcleo de Sociedade Inclusiva.</li>
+            <li>CEPEX/UNIMONTES. <em>Resolução nº 080/2018</em> — critérios para contratação de Professor Auxiliar de Educação Especial.</li>
+            <li>FREIRE, Paulo. <em>Pedagogia da autonomia: saberes necessários à prática educativa.</em> São Paulo: Paz e Terra, 1996.</li>
+            <li>GLAT, R.; VIANNA, M. M.; REDIG, A. G. Plano educacional individualizado. <em>Ciências Humanas e Sociais em Revista</em>, v. 34, n. 12, p. 79–100, 2012.</li>
+            <li>MARIN, Márcia; BRAUN, Patrícia. Ensino Colaborativo como prática de inclusão escolar. In: GLAT, Rosana; PLETSCH, Márcia Denise. <em>Estratégias educacionais diferenciadas para alunos com necessidades especiais.</em> Rio de Janeiro: EdUERJ, 2013.</li>
+            <li>MINAS GERAIS. <em>Lei nº 15.150</em>, de 01/06/2004.</li>
+            <li>MINAS GERAIS. Secretaria de Estado de Educação. <em>Guia de orientação da educação especial na rede estadual de ensino de Minas Gerais.</em> Belo Horizonte: SEE/MG, 2014.</li>
+            <li>MINAS GERAIS. Secretaria de Educação. <em>Cartilha para pais, estudantes e profissionais da educação: a Educação Especial na Perspectiva Inclusiva.</em> 2016.</li>
+            <li>MINAS GERAIS. <em>Lei nº 22.571</em>, de 5 de julho de 2017.</li>
+            <li>MINISTÉRIO PÚBLICO FEDERAL. <em>Educação em Direitos Humanos: um guia para a prática.</em> Brasília: MPF, 2004.</li>
+            <li>ONU. <em>Declaração Universal dos Direitos Humanos.</em> 1948.</li>
+            <li>ONU. <em>Convenção sobre os Direitos das Pessoas com Deficiência.</em> Doc. A/61/611, Nova Iorque, 13 dez. 2006.</li>
+            <li>ONU. <em>Declaração de Manágua.</em> 1993.</li>
+            <li>ORGANIZAÇÃO DOS ESTADOS AMERICANOS. <em>Convenção Interamericana para a Eliminação de Todas as Formas de Discriminação contra as Pessoas Portadoras de Deficiência.</em> Guatemala, 7 jun. 1999.</li>
+            <li>PAPIM, M. C. C. <em>O transtorno do espectro autista na educação básica e no ensino superior: práticas pedagógicas inclusivas.</em> Campinas: Mercado de Letras, 2020.</li>
+            <li>REIS, S. A. dos. <em>Inclusão: o desafio das diferenças na escola.</em> São Paulo: Summus, 2006.</li>
+            <li>ROPOLI, Edilene Aparecida et al. <em>A Educação Especial na Perspectiva da Inclusão Escolar: a escola comum inclusiva.</em> Brasília: Ministério da Educação, 2010.</li>
+            <li>SILVA, A. C. da; PAVÃO, S. M. S. Currículo e inclusão: tensões e desafios no ensino superior. <em>Revista Educação Especial</em>, Santa Maria, v. 31, e19, 2018.</li>
+            <li>SILVA, Luiz Carlos Loreto da. <em>Capacitismo: o que é isso?</em> Kindle, 2021.</li>
+            <li>UNESCO. <em>Declaração de Salamanca sobre princípios, política e práticas na área das necessidades educativas especiais.</em> 1994.</li>
+            <li>UNESCO. <em>Declaração mundial sobre educação para todos e plano de ação para satisfazer as necessidades básicas de aprendizagem.</em> Jomtien, Tailândia: UNESCO, 1990.</li>
+            <li>UNIMONTES. <em>Plano de Desenvolvimento Institucional: PDI 2017/2021.</em></li>
+            <li>UNIMONTES. <em>Plano de Desenvolvimento Institucional: PDI 2022/2026.</em></li>
+            <li>UNIMONTES. <em>Portfólio Cursos de Graduação Unimontes.</em> Montes Claros: Unimontes Pró-Reitoria de Ensino, 2024.</li>
+          </ul>
+        </details>
+      </section>
+
+      <section id="contato" aria-labelledby="contato-title">
+        <p class="kicker">Fale com o NUSI</p>
+        <h2 id="contato-title">Contato</h2>
+        <address>
+          <div class="contact-grid">
+            <div class="contact-card"><h4>E-mail</h4><p><a href="mailto:nusi@unimontes.br">nusi@unimontes.br</a></p></div>
+            <div class="contact-card"><h4>E-mail (Libras)</h4><p><a href="mailto:nusi.libras@unimontes.br">nusi.libras@unimontes.br</a></p></div>
+            <div class="contact-card"><h4>Telefone</h4><p><a href="tel:+553832298196">(38) 3229-8196</a></p></div>
+            <div class="contact-card"><h4>Instagram</h4><p><a href="https://instagram.com/nusiunimontes" target="_blank" rel="noopener noreferrer">@nusiunimontes</a></p></div>
+            <div class="contact-card"><h4>Onde fica</h4><p>Centro de Ciências Humanas (CCH) — salas 21 e 27, Unimontes, Montes Claros/MG.</p></div>
+          </div>
+        </address>
+      </section>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <p>Transcrição em texto acessível do livreto <em>Núcleo de Sociedade Inclusiva – NUSI: Perspectivas de acessibilidade e inclusão no ensino superior</em> (1ª edição, nov/2025), organizado por Bernarda Elane Madureira Lopes et al. Página desenvolvida por [seu nome] e EnzoMFF.</p>
+  </footer>
+
+  <!-- Widget oficial VLibras (tradução automática para Libras) -->
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
+    </div>
+  </div>
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script>
+    if (window.VLibras) { new window.VLibras.Widget('https://vlibras.gov.br/app'); }
+  </script>
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var scale = 1, minScale = 0.85, maxScale = 1.5, step = 0.1;
+      function applyScale() { root.style.setProperty('--scale', scale.toFixed(2)); }
+      document.getElementById('btn-font-increase').addEventListener('click', function () { scale = Math.min(maxScale, scale + step); applyScale(); });
+      document.getElementById('btn-font-decrease').addEventListener('click', function () { scale = Math.max(minScale, scale - step); applyScale(); });
+      document.getElementById('btn-font-reset').addEventListener('click', function () { scale = 1; applyScale(); });
+
+      var contrastBtn = document.getElementById('btn-contrast');
+      contrastBtn.addEventListener('click', function () {
+        var active = root.getAttribute('data-contrast') === 'alto';
+        if (active) { root.removeAttribute('data-contrast'); contrastBtn.setAttribute('aria-pressed', 'false'); }
+        else { root.setAttribute('data-contrast', 'alto'); contrastBtn.setAttribute('aria-pressed', 'true'); }
+      });
+
+      var sumarioNav = document.getElementById('sumario-nav');
+      var sumarioToggle = document.getElementById('sumario-toggle');
+      sumarioToggle.addEventListener('click', function () {
+        var open = sumarioNav.classList.toggle('open');
+        sumarioToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      var sumarioLinks = document.querySelectorAll('#sumario-list a');
+      sumarioLinks.forEach(function (link) {
+        link.addEventListener('click', function () {
+          if (window.matchMedia('(max-width: 900px)').matches) {
+            sumarioNav.classList.remove('open');
+            sumarioToggle.setAttribute('aria-expanded', 'false');
+          }
+        });
+      });
+
+      var sections = document.querySelectorAll('main.content > section[id]');
+      if ('IntersectionObserver' in window && sections.length) {
+        var obs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              sumarioLinks.forEach(function (l) { l.classList.remove('active'); });
+              var active = document.querySelector('#sumario-list a[data-target="' + entry.target.id + '"]');
+              if (active) active.classList.add('active');
+            }
+          });
+        }, { rootMargin: '-15% 0px -70% 0px' });
+        sections.forEach(function (s) { obs.observe(s); });
+      }
+
+      var readBtn = document.getElementById('btn-read');
+      var contentEl = document.getElementById('conteudo');
+      var speaking = false;
+      readBtn.addEventListener('click', function () {
+        if (!('speechSynthesis' in window)) { alert('Este navegador não é compatível com leitura em voz alta.'); return; }
+        if (speaking) {
+          window.speechSynthesis.cancel(); speaking = false; readBtn.setAttribute('aria-pressed', 'false'); return;
+        }
+        var utterance = new SpeechSynthesisUtterance(contentEl.innerText);
+        utterance.lang = 'pt-BR';
+        utterance.onend = function () { speaking = false; readBtn.setAttribute('aria-pressed', 'false'); };
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.speak(utterance);
+        speaking = true; readBtn.setAttribute('aria-pressed', 'true');
+      });
+    })();
+  </script>
+</body>
+</html>
