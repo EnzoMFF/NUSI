@@ -2,7 +2,7 @@
 
 Transcrição em HTML do livreto **NUSI (Núcleo de Sociedade Inclusiva) — Perspectivas de Acessibilidade e Inclusão no Ensino Superior**, com menu lateral fixo (Sumário) que leva direto a cada capítulo.
 
-Projeto de **[seu nome]** e **EnzoMFF**.
+Projeto de **EnzoMFF**.
 
 ## Arquivos
 
@@ -31,19 +31,6 @@ Os dois PDFs continuam disponíveis para download, para quem quiser a versão vi
 - Sumário 100% navegável por teclado, com destaque automático da seção atual enquanto você rola a página.
 - Skip link ("Pular para o conteúdo") para quem navega por teclado ou leitor de tela.
 
-## Como publicar no GitHub Pages
-
-1. Crie um repositório (ex.: `nusi-unimontes`) e adicione o **EnzoMFF** como colaborador em Settings → Collaborators.
-2. Envie `index.html`, `livreto-nusi-unimontes.pdf` e `livreto-nusi-leitura-online.pdf` para a raiz do repositório.
-3. Em Settings → Pages, selecione a branch `main` e a pasta `/(root)`.
-4. O site fica em `https://SEU-USUARIO.github.io/nusi-unimontes/`.
-
-> Os PDFs somados têm ~74 MB. Isso é normal para um repositório do GitHub (limite de 100 MB por arquivo), só deixa o clone/upload inicial um pouco mais lento.
-
 ## Ajustando o conteúdo
 
 Todo o texto está direto no `index.html`, dividido em `<section>` (uma por capítulo, na mesma ordem do Sumário). Para corrigir ou completar algum trecho, procure pelo título do capítulo e edite o texto normalmente — é HTML puro, sem build nem dependências.
-
-## Conferência de fidelidade
-
-Este texto foi transcrito a partir das imagens do PDF original (o arquivo não tinha camada de texto para copiar diretamente). O conteúdo, os números de lei e os dados foram conferidos com cuidado, mas vale uma revisão final por alguém da equipe do NUSI antes de publicar oficialmente, especialmente números de lei, artigos e dados estatísticos.
